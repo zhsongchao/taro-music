@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '网易云音乐'
+  navigationBarTitleText: '律汇赢'
 }
