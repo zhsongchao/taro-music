@@ -9,7 +9,7 @@ export default {
   pages: [
     "pages/index/index",
     "pages/my/index",
-    "pages/user/index",
+    "pages/tools/index",
   ],
   window: {
     backgroundTextStyle: "light",
@@ -17,23 +17,26 @@ export default {
     navigationBarTitleText: "WeChat",
     navigationBarTextStyle: "white",
   },
-  requiredBackgroundModes: ["audio"],
-  "subpackages": [
+  tabBar: {
+    "color": "#000000",
+    "selectedColor": "#3cc51f",
+    "backgroundColor": "#FFFFFF",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "iconPath": "assets/images/tabbar/home_sele_icon.png",
+      "selectedIconPath": "assets/images/tabbar/home_unsele_icon.png",
+      "text": "首页"
+    }, 
     {
-      "root": "pages/packageA",
-      "pages": [
-        "pages/videoDetail/index",
-        "pages/djprogramListDetail/index",
-        "pages/search/index",
-        "pages/searchResult/index",
-        "pages/songDetail/index",
-        "pages/playListDetail/index",
-        "pages/login/index",
-        "pages/myFans/index",
-        "pages/myFocus/index",
-        "pages/myEvents/index",
-        "pages/recentPlay/index",
-      ]
-    }
-  ]
+      "pagePath": "pages/tools/index",
+      "iconPath": "assets/images/tabbar/tools_sele_icon.png",
+      "selectedIconPath": "assets/images/tabbar/tools_unsele_icon.png",
+      "text": "工具"
+    }, {
+      "pagePath": "pages/my/index",
+      "iconPath": "assets/images/tabbar/my_sele_icon.png",
+      "selectedIconPath": "assets/images/tabbar/my_unsele_icon.png",
+      "text": "我的"
+    }]
+  },
 };

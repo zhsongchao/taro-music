@@ -87,22 +87,22 @@ class Page extends Component<IProps, PageState> {
     };
   }
 
-  // componentWillReceiveProps (nextProps) {
-  //   console.log(this.props, nextProps)
-  // }
+  componentWillReceiveProps (nextProps) {
+    console.log(this.props, nextProps)
+  }
 
   componentWillUnmount() {}
 
   componentDidShow() {
-    if (!this.state.userInfo) {
-      Taro.navigateTo({
-        url: "/pages/packageA/pages/login/index"
-      });
-      return;
-    }
-    this.getSubcount();
-    this.getUserDetail();
-    this.getPlayList();
+    // if (!this.state.userInfo) {
+    //   Taro.navigateTo({
+    //     url: "/pages/packageA/pages/login/index"
+    //   });
+    //   return;
+    // }
+    // this.getSubcount();
+    // this.getUserDetail();
+    // this.getPlayList();
   }
 
   componentDidHide() {}
@@ -171,15 +171,15 @@ class Page extends Component<IProps, PageState> {
   }
 
   goSearch() {
-    Taro.navigateTo({
-      url: `/pages/packageA/pages/search/index`
-    });
+    // Taro.navigateTo({
+    //   url: `/pages/packageA/pages/search/index`
+    // });
   }
 
   jumpPage(name) {
-    Taro.navigateTo({
-      url: `/pages/packageA/pages/${name}/index`
-    });
+    // Taro.navigateTo({
+    //   url: `/pages/packageA/pages/${name}/index`
+    // });
   }
 
   jumpEventPage() {
@@ -191,13 +191,13 @@ class Page extends Component<IProps, PageState> {
   }
 
   signOut() {
-    Taro.clearStorage();
-    api.get("/logout").then(res => {
-      console.log("退出登陆", res);
-    });
-    Taro.redirectTo({
-      url: "/pages/packageA/pages/login/index"
-    });
+    // Taro.clearStorage();
+    // api.get("/logout").then(res => {
+    //   console.log("退出登陆", res);
+    // });
+    // Taro.redirectTo({
+    //   url: "/pages/packageA/pages/login/index"
+    // });
   }
 
   goDetail(item) {
@@ -230,14 +230,6 @@ class Page extends Component<IProps, PageState> {
           isHome={true}
           onUpdatePlayStatus={this.props.updatePlayStatus.bind(this)}
         />
-        <View onClick={this.goSearch.bind(this)}>
-          <AtSearchBar
-            actionName="搜一下"
-            disabled={true}
-            value={searchValue}
-            onChange={this.goSearch.bind(this)}
-          />
-        </View>
         <View className="header">
           <View className="header__left" onClick={this.goUserDetail.bind(this)}>
             <Image
@@ -270,25 +262,16 @@ class Page extends Component<IProps, PageState> {
             <View className="user_count__sub--num">
               {userInfo?.profile?.eventCount || 0}
             </View>
-            <View>动态</View>
+            <View>合伙人</View>
           </View>
           <View
             className="user_count__sub"
-            onClick={this.jumpPage.bind(this, "myFocus")}
+            onClick={this.jumpEventPage.bind(this)}
           >
             <View className="user_count__sub--num">
-              {userInfo?.profile?.newFollows || 0}
+              {userInfo?.profile?.eventCount || 0}
             </View>
-            <View>关注</View>
-          </View>
-          <View
-            className="user_count__sub"
-            onClick={this.jumpPage.bind(this, "myFans")}
-          >
-            <View className="user_count__sub--num">
-              {userInfo?.profile?.followeds || 0}
-            </View>
-            <View>粉丝</View>
+            <View>合伙人分红</View>
           </View>
         </View>
         <View className="user_brief">
@@ -301,7 +284,7 @@ class Page extends Component<IProps, PageState> {
               className="user_brief__item__text"
               onClick={this.jumpPage.bind(this, "recentPlay")}
             >
-              <Text>最近播放</Text>
+              <Text>我的订单</Text>
               <Text className="at-icon at-icon-chevron-right"></Text>
             </View>
           </View>
@@ -314,96 +297,24 @@ class Page extends Component<IProps, PageState> {
               className="user_brief__item__text"
               onClick={this.showToast.bind(this)}
             >
-              <Text>我的电台</Text>
+              <Text>合伙人介绍</Text>
               <Text className="at-icon at-icon-chevron-right"></Text>
             </View>
           </View>
           <View className="user_brief__item">
             <Image
               className="user_brief__item__img"
-              src={require("../../assets/images/my/my_collection_icon.png")}
+              src={require("../../assets/images/my/my_radio.png")}
             />
             <View
               className="user_brief__item__text"
               onClick={this.showToast.bind(this)}
             >
-              <Text>我的收藏</Text>
+              <Text>成为合伙人</Text>
               <Text className="at-icon at-icon-chevron-right"></Text>
             </View>
           </View>
         </View>
-        <View className="user_playlist">
-          <View className="user_playlist__title">
-            我创建的歌单
-            <Text className="user_playlist__title__desc">
-              ({userCreateList.length})
-            </Text>
-          </View>
-          {userCreateList.length === 0 ? <CLoading /> : ""}
-          <View>
-            {userCreateList.map(item => (
-              <View
-                key={item.id}
-                className="user_playlist__item"
-                onClick={this.goDetail.bind(this, item)}
-              >
-                <Image
-                  className="user_playlist__item__cover"
-                  src={`${item.coverImgUrl}?imageView&thumbnail=250x0`}
-                />
-                <View className="user_playlist__item__info">
-                  <View className="user_playlist__item__info__name">
-                    {item.name}
-                  </View>
-                  <View className="user_playlist__item__info__count">
-                    {item.trackCount}首, 播放{formatCount(item.playCount)}次
-                  </View>
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
-        <View className="user_playlist">
-          <View className="user_playlist__title">
-            我收藏的歌单
-            <Text className="user_playlist__title__desc">
-              ({userCollectList.length})
-            </Text>
-          </View>
-          {userCollectList.length === 0 ? <CLoading /> : ""}
-          <View>
-            {userCollectList.map(item => (
-              <View
-                key={item.id}
-                className="user_playlist__item"
-                onClick={this.goDetail.bind(this, item)}
-              >
-                <Image
-                  className="user_playlist__item__cover"
-                  src={`${item.coverImgUrl}?imageView&thumbnail=250x0`}
-                />
-                <View className="user_playlist__item__info">
-                  <View className="user_playlist__item__info__name">
-                    {item.name}
-                  </View>
-                  <View className="user_playlist__item__info__count">
-                    {item.trackCount}首, 播放{formatCount(item.playCount)}次
-                  </View>
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
-        <AtTabBar
-          fixed
-          selectedColor="#d43c33"
-          tabList={[
-            { title: "发现", iconPrefixClass: "fa", iconType: "feed" },
-            { title: "我的", iconPrefixClass: "fa", iconType: "music" }
-          ]}
-          onClick={this.switchTab.bind(this)}
-          current={this.state.current}
-        />
       </View>
     );
   }

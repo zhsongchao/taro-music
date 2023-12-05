@@ -9,6 +9,7 @@ import CMusic from "../../components/CMusic";
 import api from "../../services/api";
 // import { injectPlaySong } from "../../utils/decorators";
 import { songType } from "../../constants/commonType";
+import appConfig from "../../app.config"
 import {
   getRecommendPlayList,
   getRecommendDj,
@@ -147,10 +148,8 @@ class Index extends Component<IProps, PageState> {
   }
 
   switchTab(value) {
-    if (value !== 1) return;
-    Taro.reLaunch({
-      url: "/pages/my/index"
-    });
+    console.log("value->", appConfig?.pages[value])
+    Taro.switchTab({url:appConfig?.pages[value]})
   }
 
   /**
@@ -455,14 +454,14 @@ class Index extends Component<IProps, PageState> {
                     {recommendPlayList.map(item => (
                       <View
                         key={item.id}
-                        className="legal_adviser__item"
+                        className="legal_text__item"
                         onClick={this.goDetail.bind(this, item)}
                       >
                         <Image
                           src={`${item.picUrl}?imageView&thumbnail=250x0`}
-                          className="legal_adviser__item__cover"
+                          className="legal_text__item__cover"
                         />
-                        <View className="legal_adviser__item__title">
+                        <View className="legal_text__item__title">
                           {item.name}
                         </View>
                         <View className="price_area">
@@ -492,21 +491,35 @@ class Index extends Component<IProps, PageState> {
                     {recommendPlayList.map(item => (
                       <View
                         key={item.id}
-                        className="legal_adviser__item"
+                        className="contract_text__item"
                         onClick={this.goDetail.bind(this, item)}
                       >
                         <Image
                           src={`${item.picUrl}?imageView&thumbnail=250x0`}
-                          className="legal_adviser__item__cover"
+                          className="contract_text__item__cover"
                         />
-                        <View className="legal_adviser__item__cover__num">
+                        <View className="contract_text__item__cover__num">
                           <Text className="at-icon at-icon-sound"></Text>
                           {item.playCount < 10000
                             ? item.playCount
                             : `${Number(item.playCount / 10000).toFixed(0)}万`}
                         </View>
-                        <View className="legal_adviser__item__title">
+                        <View className="contract_text__item__title">
                           {item.name}
+                        </View>
+                        <View className="price_area">
+                          <View className="daily">
+                            <View className="daily-prefix">日常价</View>
+                            <View className="daily-price">&yen;29999</View>
+                          </View>
+                          <View className="cheap">
+                            <View className="cheap-prefix">会员价</View>
+                            <View className="cheap-price">
+                              <View className="icon">&yen;</View>
+                              <View className="price">19999</View>
+                            </View>
+                          </View>
+                          <View className="sell_num">已售300份</View>
                         </View>
                       </View>
                     ))}
@@ -514,7 +527,7 @@ class Index extends Component<IProps, PageState> {
                 </View>
               </View>
             </AtTabsPane>
-            <AtTabsPane current={this.state.current} index={2}>
+            <AtTabsPane current={this.state.current} index={3}>
               <View style="font-size:18px;text-align:center;height:100px;">
                 <View className="product_list">
                   <View className="product_list__content">
@@ -545,17 +558,6 @@ class Index extends Component<IProps, PageState> {
             </AtTabsPane>
           </AtTabs>
         </View>
-        <AtTabBar
-          fixed
-          selectedColor="#d43c33"
-          tabList={[
-            { title: "发现", iconPrefixClass: "fa", iconType: "feed" },
-            { title: "服务", iconPrefixClass: "fa", iconType: "music" },
-            { title: "我的", iconPrefixClass: "fa", iconType: "music" }
-          ]}
-          onClick={this.switchTab.bind(this)}
-          current={this.state.current}
-        />
       </View>
     );
   }
