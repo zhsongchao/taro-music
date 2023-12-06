@@ -7,8 +7,8 @@
  */
 export default {
   pages: [
-    "pages/index/index",
-    "pages/my/index",
+    "pages/home/home",
+    "pages/myProfile/myProfile",
     "pages/tools/index",
   ],
   window: {
@@ -22,7 +22,7 @@ export default {
     "selectedColor": "#3cc51f",
     "backgroundColor": "#FFFFFF",
     "list": [{
-      "pagePath": "pages/index/index",
+      "pagePath": "pages/home/home",
       "iconPath": "assets/images/tabbar/home_sele_icon.png",
       "selectedIconPath": "assets/images/tabbar/home_unsele_icon.png",
       "text": "首页"
@@ -33,7 +33,7 @@ export default {
       "selectedIconPath": "assets/images/tabbar/tools_unsele_icon.png",
       "text": "工具"
     }, {
-      "pagePath": "pages/my/index",
+      "pagePath": "pages/myProfile/myProfile",
       "iconPath": "assets/images/tabbar/my_sele_icon.png",
       "selectedIconPath": "assets/images/tabbar/my_unsele_icon.png",
       "text": "我的"

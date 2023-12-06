@@ -21,6 +21,7 @@
 	"author": "lsqy93@aliyun.com",
 	"license": "MIT",
 	"dependencies": {
+		"@reduxjs/toolkit": "^1.9.7",
 		"@tarojs/cli": "3.3.14",
 		"@tarojs/components": "3.3.14",
 		"@tarojs/mini-runner": "3.3.14",
@@ -28,6 +29,7 @@
 		"@tarojs/router": "3.3.14",
 		"@tarojs/runtime": "3.3.14",
 		"@tarojs/taro": "3.3.14",
+		"axios": "^1.6.2",
 		"classnames": "^2.2.6",
 		"nerv-devtools": "^1.5.7",
 		"nervjs": "^1.5.7",

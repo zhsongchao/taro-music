@@ -1,3 +1,5 @@
+
+// const requestConfig = require('./requestConfig.js');
 // eslint-disable-next-line
 module.exports = {
   env: {
@@ -5,6 +7,7 @@ module.exports = {
   },
   defineConstants: {
   },
+  // ...requestConfig,
   weapp: {
     module: {
       postcss: {
